@@ -11,11 +11,11 @@ const cssMain = {
 };
 
 const cssForm = {
-  width: 100 + "%",
-  maxWidth: 250 + "px",
+  width: "100%",
+  maxWidth: "400px",
   margin: "0 auto",
   backgroundColor: "#fff",
-  padding: 16 + "px",
+  padding: "24px",
   borderRadius: "16px",
   boxShadow: "1px 1px 10px rgba(0,0,0,1)",
 };
@@ -27,8 +27,11 @@ const cssLabel = {
 };
 const cssInput = {
   width: "100%",
-  marginBottom: 2,
-  height: 27 + "px",
+  marginBottom: 8,
+  borderRadius: 4,
+  borderWidth: 1,
+  padding: 8,
+  height: "40px",
   fontSize: "16px",
 };
 const cssButton = {
@@ -38,14 +41,15 @@ const cssButton = {
   color: "#fff",
   fontWeight: "bold",
   appearance: "none",
-  borderRadius: 3 + "px",
+  borderRadius: "8px",
   border: "none",
-  height: "32px",
+  height: "40px",
 };
 const cssError = {
   color: "rgba(253, 43, 54, .8)",
   fontWeight: "bold",
-  fontSize: 10 + "px",
+  fontSize: "14px",
+  marginBottom: 8,
 };
 
 export default function Home() {
