@@ -1,95 +1,103 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useForm } from "react-hook-form";
+import ValidacaoFormularioLogin from "@/validations/LoginValidation";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const cssMain = {
+  backgroundColor: "#333",
+  height: "100vh",
+  display: "flex",
+  alignItems: "center",
+};
+
+const cssForm = {
+  width: 100 + "%",
+  maxWidth: 250 + "px",
+  margin: "0 auto",
+  backgroundColor: "#fff",
+  padding: 16 + "px",
+  borderRadius: "16px",
+  boxShadow: "1px 1px 10px rgba(0,0,0,1)",
+};
+const cssLabel = {
+  display: "block",
+  width: "100%",
+  fontWeight: "bold",
+  marginBottom: 4,
+};
+const cssInput = {
+  width: "100%",
+  marginBottom: 2,
+  height: 27 + "px",
+  fontSize: "16px",
+};
+const cssButton = {
+  backgroundColor: "#0052cc",
+  width: "100%",
+  margin: "8px 0 0 0",
+  color: "#fff",
+  fontWeight: "bold",
+  appearance: "none",
+  borderRadius: 3 + "px",
+  border: "none",
+  height: "32px",
+};
+const cssError = {
+  color: "rgba(253, 43, 54, .8)",
+  fontWeight: "bold",
+  fontSize: 10 + "px",
+};
 
 export default function Home() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(ValidacaoFormularioLogin),
+  });
+
+  const enviaFormulario = (camposDoFormulario) => {
+    console.log(camposDoFormulario);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <main style={cssMain}>
+      <form style={cssForm} onSubmit={handleSubmit(enviaFormulario)}>
+        <label style={cssLabel} htmlFor="nome">
+          Nome:
+        </label>
+        <input
+          style={cssInput}
+          placeholder="Digite seu nome"
+          {...register("nome")}
+          type="text"
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+        {errors.nome && <p style={cssError}>{errors.nome.message}</p>}
+        <label style={cssLabel} htmlFor="email">
+          E- mail:
+        </label>
+        <input
+          style={cssInput}
+          {...register("email")}
+          placeholder="Digite seu e-mail"
+          type="text"
+        />
+        {errors.email && <p style={cssError}>{errors.email.message}</p>}
+        <label style={cssLabel} htmlFor="cpf">
+          CPF:
+        </label>
+        <input
+          style={cssInput}
+          {...register("cpf")}
+          type="tel"
+          placeholder="000.000.000-00"
+        />
+        {errors.cpf && <p style={cssError}>{errors.cpf.message}</p>}
+        <button style={cssButton} type="submit">
+          Enviar
+        </button>
+      </form>
     </main>
-  )
+  );
 }
